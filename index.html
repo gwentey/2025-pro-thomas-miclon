@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan d'Action Marketing - Solar Brother</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: landscape;
+            margin: 1cm;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f0 0%, #e8ede5 100%);
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6b7c5e 0%, #a8b899 100%);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #6b7c5e 0%, #7a9b6a 100%);
+            color: white;
+        }
+
+        th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e8ede5;
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: #f9fdf7;
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(107, 124, 94, 0.1);
+        }
+
+        td {
+            padding: 18px 15px;
+            vertical-align: top;
+            line-height: 1.6;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        /* Coloration des phases */
+        .phase-attirer {
+            background: linear-gradient(90deg, #e8f5e9 0%, transparent 100%);
+            font-weight: bold;
+            color: #2d5016;
+        }
+
+        .phase-convertir {
+            background: linear-gradient(90deg, #fff9e6 0%, transparent 100%);
+            font-weight: bold;
+            color: #8b6914;
+        }
+
+        .phase-fideliser {
+            background: linear-gradient(90deg, #e3f2fd 0%, transparent 100%);
+            font-weight: bold;
+            color: #1565c0;
+        }
+
+        .phase-engager {
+            background: linear-gradient(90deg, #fce4ec 0%, transparent 100%);
+            font-weight: bold;
+            color: #880e4f;
+        }
+
+        /* Style des actions */
+        .action-cell {
+            font-weight: 600;
+            color: #2d3d2d;
+        }
+
+        /* Largeurs des colonnes */
+        th:nth-child(1), td:nth-child(1) { width: 10%; }
+        th:nth-child(2), td:nth-child(2) { width: 18%; }
+        th:nth-child(3), td:nth-child(3) { width: 15%; }
+        th:nth-child(4), td:nth-child(4) { width: 25%; }
+        th:nth-child(5), td:nth-child(5) { width: 17%; }
+        th:nth-child(6), td:nth-child(6) { width: 15%; }
+
+        /* Badge pour les phases */
+        .phase-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-attirer {
+            background: #4caf50;
+            color: white;
+        }
+
+        .badge-convertir {
+            background: #ff9800;
+            color: white;
+        }
+
+        .badge-fideliser {
+            background: #2196f3;
+            color: white;
+        }
+
+        .badge-engager {
+            background: #e91e63;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f0;
+            color: #6b7c5e;
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 1400px) {
+            body {
+                padding: 15px 10px;
+            }
+            
+            .table-container {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.8em;
+            }
+
+            th, td {
+                padding: 12px 10px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            tbody tr:hover {
+                transform: none;
+                box-shadow: none;
+            }
+
+            @page {
+                size: landscape;
+            }
+        }
+
+        /* Decoration */
+        .solar-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌞 Plan d'Action Marketing - Solar Brother</h1>
+            <p>Stratégie complète : Attirer • Convertir • Fidéliser • Engager</p>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Phase</th>
+                        <th>Action proposée</th>
+                        <th>Objectif visé</th>
+                        <th>Moyens & mise en place</th>
+                        <th>Livrable attendu</th>
+                        <th>KPI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ATTIRER -->
+                    <tr>
+                        <td class="phase-attirer">
+                            <span class="phase-badge badge-attirer">Attirer</span>
+                        </td>
+                        <td class="action-cell">Campagne SEO & storytelling "Cuisiner au Soleil"</td>
+                        <td>Accroître la visibilité organique et inspirer de nouveaux prospects.</td>
+                        <td>Création d'un mini-blog "Le Journal du Soleil" avec 2 articles optimisés : "Comment cuisiner sans gaz ?" + "Les 5 accessoires solaires à emporter". Diffusion sur Instagram et Pinterest.</td>
+                        <td>2 articles SEO + visuel social Canva + bannière "#SolarLife".</td>
+                        <td>Position Google sur les mots-clés, trafic organique, taux de clics (CTR).</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-attirer">
+                            <span class="phase-badge badge-attirer">Attirer</span>
+                        </td>
+                        <td class="action-cell">Partenariat micro-influenceurs écolos / outdoor</td>
+                        <td>Gagner en notoriété sur les réseaux à faible coût.</td>
+                        <td>Collaboration avec 3 créateurs de contenu sur TikTok/Instagram (ex. "Une journée sans énergie fossile"). Produits offerts en échange d'avis vidéo.</td>
+                        <td>3 vidéos UGC + 1 compilation pour Reels.</td>
+                        <td>Engagement (likes, vues, partages), nouveaux abonnés.</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-attirer">
+                            <span class="phase-badge badge-attirer">Attirer</span>
+                        </td>
+                        <td class="action-cell">Quiz interactif "Quel cuiseur solaire est fait pour vous ?"</td>
+                        <td>Générer du trafic et collecter des leads qualifiés.</td>
+                        <td>Conception d'un quiz sur le site (Typeform ou plugin WordPress) + lien en bio réseaux sociaux.</td>
+                        <td>Quiz hébergé + 1 visuel promotionnel + base d'emails collectés.</td>
+                        <td>Taux de participation, nouveaux abonnés newsletter, taux de conversion sur site.</td>
+                    </tr>
+
+                    <!-- CONVERTIR -->
+                    <tr>
+                        <td class="phase-convertir">
+                            <span class="phase-badge badge-convertir">Convertir</span>
+                        </td>
+                        <td class="action-cell">Refonte de 3 fiches produits clés</td>
+                        <td>Améliorer le taux de conversion e-commerce.</td>
+                        <td>Réécriture SEO, ajout de photos 360°, avis clients et vidéos d'usage.</td>
+                        <td>3 nouvelles fiches optimisées + modèle standard.</td>
+                        <td>Taux de conversion, durée moyenne sur page, panier moyen.</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-convertir">
+                            <span class="phase-badge badge-convertir">Convertir</span>
+                        </td>
+                        <td class="action-cell">Campagne d'email nurturing "3 raisons d'adopter la cuisson solaire"</td>
+                        <td>Accompagner la décision d'achat et lever les freins.</td>
+                        <td>Automatisation via Mailchimp avec 3 emails éducatifs : innovation, impact, économie.</td>
+                        <td>1 séquence email + visuel e-mailing Canva.</td>
+                        <td>Taux d'ouverture, clics, conversion post-mail.</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-convertir">
+                            <span class="phase-badge badge-convertir">Convertir</span>
+                        </td>
+                        <td class="action-cell">Offre "Premier achat solaire" (-10%)</td>
+                        <td>Déclencher la première transaction.</td>
+                        <td>Pop-up intelligent sur le site + code promo pour les nouveaux inscrits à la newsletter.</td>
+                        <td>Pop-up design + code promotionnel + bannière web.</td>
+                        <td>Taux de conversion, nombre d'inscriptions newsletter.</td>
+                    </tr>
+
+                    <!-- FIDÉLISER -->
+                    <tr>
+                        <td class="phase-fideliser">
+                            <span class="phase-badge badge-fideliser">Fidéliser</span>
+                        </td>
+                        <td class="action-cell">Programme ambassadeur "Solar Friends"</td>
+                        <td>Transformer les clients satisfaits en prescripteurs.</td>
+                        <td>Création d'un programme par parrainage : 10 % de réduction pour le parrain et le filleul.</td>
+                        <td>Page programme + email de lancement + visuel social.</td>
+                        <td>Nombre de parrainages, ventes issues du programme.</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-fideliser">
+                            <span class="phase-badge badge-fideliser">Fidéliser</span>
+                        </td>
+                        <td class="action-cell">Newsletter mensuelle "Les Innovations Solaires"</td>
+                        <td>Maintenir la relation client et valoriser la marque.</td>
+                        <td>Envoi mensuel via Mailchimp avec nouveautés, recettes solaires, ateliers communautaires.</td>
+                        <td>1 template newsletter + 3 premiers numéros.</td>
+                        <td>Taux d'ouverture, clics, désabonnement, ventes indirectes.</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-fideliser">
+                            <span class="phase-badge badge-fideliser">Fidéliser</span>
+                        </td>
+                        <td class="action-cell">Collecte d'avis vidéo post-achat</td>
+                        <td>Renforcer la preuve sociale et améliorer la réassurance.</td>
+                        <td>Envoi automatique 15 jours après l'achat pour solliciter un avis + récompense de 5 €.</td>
+                        <td>10 vidéos UGC clients + carrousel Instagram.</td>
+                        <td>Nombre d'avis reçus, engagement social, conversion produits concernés.</td>
+                    </tr>
+
+                    <!-- ENGAGER -->
+                    <tr>
+                        <td class="phase-engager">
+                            <span class="phase-badge badge-engager">Engager</span>
+                        </td>
+                        <td class="action-cell">Atelier participatif "Solar Brother Days"</td>
+                        <td>Renforcer le sentiment de communauté et la proximité marque.</td>
+                        <td>Organisation d'un atelier éco-participatif : fabrication d'un cuiseur solaire + sensibilisation à l'énergie durable.</td>
+                        <td>Événement local + vidéo reportage + post recap.</td>
+                        <td>Participants, mentions sur réseaux, couverture presse locale.</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-engager">
+                            <span class="phase-badge badge-engager">Engager</span>
+                        </td>
+                        <td class="action-cell">Challenge social "#MySolarLife"</td>
+                        <td>Créer une campagne communautaire virale.</td>
+                        <td>Invitation à partager une photo d'usage du produit + tirage au sort pour un kit solaire.</td>
+                        <td>Concours + 10 meilleurs visuels publiés.</td>
+                        <td>Engagement social, UGC collectés, portée organique.</td>
+                    </tr>
+
+                    <tr>
+                        <td class="phase-engager">
+                            <span class="phase-badge badge-engager">Engager</span>
+                        </td>
+                        <td class="action-cell">Podcast "La Voix du Soleil"</td>
+                        <td>Positionner la marque comme référente dans l'innovation solaire.</td>
+                        <td>Création d'un podcast mensuel (Spotify, Deezer) avec invités experts + témoignages clients.</td>
+                        <td>3 premiers épisodes + page dédiée sur site.</td>
+                        <td>Écoutes mensuelles, partages, backlinks audio.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <strong>Solar Brother</strong> - Plan d'Action Marketing Stratégique | 12 Actions Clés pour une Croissance Durable 🌱
+        </div>
+    </div>
+</body>
+</html>
