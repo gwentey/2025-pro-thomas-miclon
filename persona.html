@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartes d'Identité - Personas Solar Brother (Format Paysage)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f0;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+        /* Feuilles décoratives */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20,50 Q30,20 50,30 Q70,40 80,50 Q70,60 50,70 Q30,80 20,50' fill='%23a8b899' opacity='0.3'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.4;
+            z-index: 0;
+        }
+        body::before {
+            top: 20px;
+            left: 30px;
+            transform: rotate(-15deg);
+        }
+        body::after {
+            bottom: 40px;
+            right: 50px;
+            transform: rotate(25deg);
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .personas-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .persona-card {
+            background: #faf9f5;
+            border-radius: 30px;
+            padding: 35px 45px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 3px solid #a8b899;
+            position: relative;
+            overflow: visible;
+            min-height: 500px;
+        }
+        /* Feuilles décoratives sur les cartes */
+        .leaf-decoration {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            opacity: 0.25;
+        }
+        .leaf-top-left {
+            top: -15px;
+            left: -15px;
+            transform: rotate(-25deg);
+        }
+        .leaf-top-right {
+            top: -10px;
+            right: 20px;
+            transform: rotate(15deg);
+        }
+        .leaf-bottom-right {
+            bottom: 20px;
+            right: -10px;
+            transform: rotate(45deg);
+        }
+        /* En-tête horizontal */
+        .header-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #a8b899;
+        }
+        .logo {
+            width: 70px;
+            height: 70px;
+            border: 3px solid #6b7c5e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            flex-shrink: 0;
+        }
+        .logo svg {
+            width: 50px;
+            height: 50px;
+        }
+        .header-text {
+            flex: 1;
+        }
+        .logo-text {
+            font-size: 0.75em;
+            font-weight: bold;
+            color: #2d3d2d;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .card-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d3d2d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        /* Layout principal en paysage */
+        .main-content {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr;
+            gap: 35px;
+            align-items: start;
+        }
+        .profile-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid #a8b899;
+            object-fit: cover;
+        }
+        .fingerprint-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .fingerprint {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 8px;
+            opacity: 0.6;
+        }
+        .footer-text {
+            font-weight: bold;
+            color: #2d3d2d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.7em;
+            text-align: center;
+        }
+        .info-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .profile-info {
+            background: #e8ede5;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #7a9b6a;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+            align-items: flex-start;
+        }
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #2d3d2d;
+            min-width: 140px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        .info-value {
+            color: #4a5a4a;
+            flex: 1;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .checkmark {
+            color: #7a9b6a;
+            font-size: 1.2em;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        .detail-section {
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-weight: bold;
+            color: #2d3d2d;
+            margin-bottom: 5px;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .section-content {
+            color: #4a5a4a;
+            line-height: 1.5;
+            font-size: 0.85em;
+        }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin: 12px 0;
+        }
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #a8b899;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1em;
+        }
+        .insight-box {
+            background: #e8ede5;
+            border-left: 4px solid #7a9b6a;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .insight-title {
+            font-weight: bold;
+            color: #2d3d2d;
+            margin-bottom: 6px;
+            font-size: 0.8em;
+        }
+        .insight-content {
+            color: #4a5a4a;
+            font-size: 0.8em;
+            line-height: 1.5;
+        }
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .persona-card {
+                page-break-after: always;
+                box-shadow: none;
+            }
+        }
+        @media (max-width: 1200px) {
+            .main-content {
+                grid-template-columns: 180px 1fr;
+                gap: 25px;
+            }
+        }
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .profile-column {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .profile-image {
+                width: 140px;
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="personas-grid">
+            <!-- Persona 1: Claire -->
+            <div class="persona-card">
+                <svg class="leaf-decoration leaf-top-left" viewBox="0 0 100 100">
+                    <path d="M20,50 Q30,20 50,30 Q70,40 80,50 Q70,60 50,70 Q30,80 20,50" fill="#a8b899"/>
+                </svg>
+                <svg class="leaf-decoration leaf-top-right" viewBox="0 0 100 100">
+                    <path d="M20,50 Q30,20 50,30 Q70,40 80,50 Q70,60 50,70 Q30,80 20,50" fill="#a8b899"/>
+                </svg>
+                <svg class="leaf-decoration leaf-bottom-right" viewBox="0 0 100 100">
+                    <path d="M20,50 Q30,20 50,30 Q70,40 80,50 Q70,60 50,70 Q30,80 20,50" fill="#a8b899"/>
+                </svg>
+
+                <div class="header-section">
+                    <div class="logo">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="#6b7c5e" stroke-width="3"/>
+                            <path d="M30,60 L40,50 L50,55 L70,35" fill="none" stroke="#6b7c5e" stroke-width="3"/>
+                            <circle cx="50" cy="30" r="8" fill="#a8b899"/>
+                            <path d="M35,70 Q50,85 65,70" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="header-text">
+                        <div class="logo-text">Consommatrice Engagée</div>
+                        <h2 class="card-title">Carte d'Identité - Claire</h2>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="profile-column">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Claire" class="profile-image">
+                        <div class="fingerprint-container">
+                            <svg class="fingerprint" viewBox="0 0 100 100">
+                                <path d="M50,20 Q65,25 65,40 Q65,55 50,60" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M50,30 Q60,33 60,43 Q60,53 50,56" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M50,40 Q55,42 55,48 Q55,54 50,56" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M35,40 Q35,55 50,60" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M40,43 Q40,53 50,56" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                            </svg>
+                            <div class="footer-text">Éducation &<br>Transmission</div>
+                        </div>
+                    </div>
+
+                    <div class="info-column">
+                        <div class="profile-info">
+                            <div class="info-row">
+                                <span class="checkmark">✓</span>
+                                <span class="info-label">NOM :</span>
+                                <span class="info-value">CLAIRE</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="checkmark">✓</span>
+                                <span class="info-label">ÂGE / SITUATION :</span>
+                                <span class="info-value">35 ANS, PROFESSEURE À PARIS, MARIÉE, DEUX ENFANTS</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="checkmark">✓</span>
+                                <span class="info-label">STYLE DE VIE :</span>
+                                <span class="info-value">SOUCIEUSE DE L'ENVIRONNEMENT, ADEPTE DU "ZÉRO DÉCHET" ET DES CIRCUITS COURTS</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Motivations :</div>
+                            <div class="section-content">
+                                Cherche à inculquer à ses enfants une conscience écologique par des gestes concrets
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Besoins :</div>
+                            <div class="section-content">
+                                Produits fiables, esthétiques et simples à utiliser à la maison
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Freins :</div>
+                            <div class="section-content">
+                                Manque de temps, crainte que les produits solaires soient peu performants en ville
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-column">
+                        <div class="detail-section">
+                            <div class="section-title">Comportement digital :</div>
+                            <div class="section-content">
+                                Active sur Instagram et Facebook ; lit des blogs éco-responsables et suit des influenceurs "green lifestyle"
+                            </div>
+                        </div>
+
+                        <div class="social-icons">
+                            <span class="social-icon">📸</span>
+                            <span class="social-icon">👍</span>
+                            <span class="social-icon">📖</span>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Valeur pour Solar Brother :</div>
+                            <div class="section-content">
+                                Forte propension à partager son expérience et à recommander les produits
+                            </div>
+                        </div>
+
+                        <div class="insight-box">
+                            <div class="insight-title">💡 Insight Marketing :</div>
+                            <div class="insight-content">
+                                Claire incarne la cible de l'"éducation solaire" — elle est sensible à la pédagogie et à la transmission. Une stratégie d'inbound marketing basée sur des guides pratiques ou des kits éducatifs familiaux renforcerait son engagement.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Persona 2: Maxime -->
+            <div class="persona-card">
+                <svg class="leaf-decoration leaf-top-left" viewBox="0 0 100 100">
+                    <path d="M20,50 Q30,20 50,30 Q70,40 80,50 Q70,60 50,70 Q30,80 20,50" fill="#a8b899"/>
+                </svg>
+                <svg class="leaf-decoration leaf-top-right" viewBox="0 0 100 100">
+                    <path d="M20,50 Q30,20 50,30 Q70,40 80,50 Q70,60 50,70 Q30,80 20,50" fill="#a8b899"/>
+                </svg>
+                <svg class="leaf-decoration leaf-bottom-right" viewBox="0 0 100 100">
+                    <path d="M20,50 Q30,20 50,30 Q70,40 80,50 Q70,60 50,70 Q30,80 20,50" fill="#a8b899"/>
+                </svg>
+
+                <div class="header-section">
+                    <div class="logo">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="#6b7c5e" stroke-width="3"/>
+                            <path d="M30,60 L40,45 L50,50 L60,40 L70,55" fill="none" stroke="#6b7c5e" stroke-width="3"/>
+                            <circle cx="50" cy="25" r="6" fill="#a8b899"/>
+                            <path d="M35,65 L50,55 L65,65" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="header-text">
+                        <div class="logo-text">Digital Nomad</div>
+                        <h2 class="card-title">Carte d'Identité - Maxime</h2>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="profile-column">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Maxime" class="profile-image">
+                        <div class="fingerprint-container">
+                            <svg class="fingerprint" viewBox="0 0 100 100">
+                                <path d="M50,20 Q65,25 65,40 Q65,55 50,60" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M50,30 Q60,33 60,43 Q60,53 50,56" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M50,40 Q55,42 55,48 Q55,54 50,56" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M35,40 Q35,55 50,60" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                                <path d="M40,43 Q40,53 50,56" fill="none" stroke="#6b7c5e" stroke-width="2"/>
+                            </svg>
+                            <div class="footer-text">Innovation &<br>Liberté</div>
+                        </div>
+                    </div>
+
+                    <div class="info-column">
+                        <div class="profile-info">
+                            <div class="info-row">
+                                <span class="checkmark">✓</span>
+                                <span class="info-label">NOM :</span>
+                                <span class="info-value">MAXIME</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="checkmark">✓</span>
+                                <span class="info-label">ÂGE / SITUATION :</span>
+                                <span class="info-value">28 ANS, CONSULTANT IT, CÉLIBATAIRE, TÉLÉTRAVAIL EN ITINÉRANCE</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="checkmark">✓</span>
+                                <span class="info-label">STYLE DE VIE :</span>
+                                <span class="info-value">PASSIONNÉ DE NATURE, DE VOYAGE ET DE TECHNOLOGIE</span>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Motivations :</div>
+                            <div class="section-content">
+                                Souhaite vivre en autonomie, limiter son empreinte carbone et disposer de solutions durables pour ses aventures
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Besoins :</div>
+                            <div class="section-content">
+                                Produits compacts, performants, faciles à transporter (chargeur solaire, mini-four pliable)
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Freins :</div>
+                            <div class="section-content">
+                                Sensibilité au prix et méfiance vis-à-vis de la durabilité réelle du matériel
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-column">
+                        <div class="detail-section">
+                            <div class="section-title">Comportement digital :</div>
+                            <div class="section-content">
+                                Très actif sur YouTube et Reddit, suit des chaînes de "vanlife" et de tests produits outdoor
+                            </div>
+                        </div>
+
+                        <div class="social-icons">
+                            <span class="social-icon">▶️</span>
+                            <span class="social-icon">💬</span>
+                            <span class="social-icon">🎥</span>
+                        </div>
+
+                        <div class="detail-section">
+                            <div class="section-title">Valeur pour Solar Brother :</div>
+                            <div class="section-content">
+                                Ambassadeur potentiel : influence sa communauté de niche par ses retours d'expérience
+                            </div>
+                        </div>
+
+                        <div class="insight-box">
+                            <div class="insight-title">💡 Insight Marketing :</div>
+                            <div class="insight-content">
+                                Maxime valorise l'innovation et la liberté. Pour le toucher, Solar Brother devrait développer des vidéos de démonstration produit, du contenu UGC (User Generated Content) et des tests comparatifs sur YouTube et TikTok.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
